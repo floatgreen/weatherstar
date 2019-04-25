@@ -8,6 +8,6 @@ test_that("correct input", {
   expect_error(obhistory(), "num of argument should be 1")
 })
 
-test_that("ouput is appropriate dataframe", {
+test_that("return proper dataframe", {
   expect_equal(ncol(obhistory("KORD")),7)
 })

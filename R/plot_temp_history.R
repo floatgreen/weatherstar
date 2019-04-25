@@ -18,7 +18,7 @@ plot_temp_history <- function(id=NULL){
   data(package = "weatherstar", "all_code")
 
   code <- all_code$Code
-  assertthat::assert_that(id %in% code , msg = "cannot open the connection")
+  assertthat::assert_that(id %in% code , msg = "not a correct ID")
 
   airportname <- all_code$Name[match(id, code)]
   weather_table <- obhistory(id)
