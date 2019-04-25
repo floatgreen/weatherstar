@@ -16,7 +16,6 @@ obhistory <- function(id=NULL){
   #load("./data/all_code.rda")
   data(package = "weatherstar", "all_code")
   code <- all_code$Code
-  #assert_that(id %in% code , msg = "cannot open the connection")
   assert_that(id %in% code , msg = "not a correct ID")
 
   webpage <- xml2::read_html(paste("https://w1.weather.gov/data/obhistory/", id, ".html", sep = ""))

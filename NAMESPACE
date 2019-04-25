@@ -3,6 +3,7 @@
 export("%>%")
 export(obhistory)
 export(plot_temp_history)
+export(runShiny)
 import(ggplot2)
 importFrom(assertthat,assert_that)
 importFrom(lubridate,days)

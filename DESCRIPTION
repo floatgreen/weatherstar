@@ -15,7 +15,7 @@ Description: A package to get and visualize the weather history data of airports
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.1.0), shiny
 URL: https://github.com/floatgreen/airportweather
 BugReports: https://github.com/floatgreen/airportweather/issues
 RoxygenNote: 6.1.1
@@ -24,7 +24,6 @@ Imports:
     ggmap,
     maps,
     mapdata,
-    shiny,
     xml2,
     rvest,
     purrr,
