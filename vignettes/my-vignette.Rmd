@@ -1,0 +1,125 @@
+---
+title: "weatherstar"
+author: "Ying Zheng"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(weatherstar)
+```
+
+
+
+## Introduction
+
+This project is STAT585 final project.
+This package is a tool for 
+
+
+
+The site  https://w1.weather.gov/xml/current_obs/ provides access to observed current weather conditions for about 2,367 locations across 58 US States and Territories. 
+
+
+```{r, out.width = '80%', echo = FALSE}
+knitr::include_graphics("../screenshots/select_state_location.png")
+```
+
+The ueser can click the XML link to acess current weather report of an airport location. From the browser, different kinds of weather associated data is shown.
+
+
+```{r, out.width = '80%', echo = FALSE}
+knitr::include_graphics("../screenshots/Ames_current.png")
+```
+
+
+- Weather 
+- Temperature 
+- Dewpoint 
+- Relative Humidity 
+- Wind 
+- Wind Chill
+- Visibility 
+- MSL Pressure 
+
+Actully, the XML file contains more than 20 different types of weather data, as well as the location and time information of the observations. A link to "2 Day History" gives accesse of an HTML page contianing weather history data for past 72 hours. 
+
+```{r, out.width = '80%', echo = FALSE}
+knitr::include_graphics("../screenshots/2dayhist.png")
+```
+
+Thanks to the well orgnized weather data from National Weather Service website, the user can easily explore both the spatial and temporal aspect of weather of selected locations. However, the XML and HTML data need to be converted to be dataframes used in reseach and analysis. The package `airportweather` is designed to be a efficient tool to scrape, extract, integrate and visualize the weather data of airport locations. The advantage of the package is it scrapes and analysis real time data from web when running functions of the package, rather than downloads some outdated data files.
+
+
+## package data preparation
+
+The primer key of the weather data  is **4 characer CODE** of airport loacations. Scraping from the root page https://w1.weather.gov/xml/current_obs/ , we have collected all possibe airport code together with the name of location and the state/territory abbreviations correspond to the code. The data set `all_code.rda` contains 2,367 US airport codes.
+
+```{r, results = "asis"}
+data(package = "weatherstar", "all_code")
+pander::pandoc.table(head(all_code))
+```
+
+
+## Fuctions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## aa
+
+## bb
+
+
+# function
+
+## 1
+## 2
+
+## 3
+
+## 4
+
+## 5
+# example 
+
+
+## 1
+
+## 2
+
+
+# futhur work
+
+
+## 1
+
+## 2
