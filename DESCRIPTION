@@ -1,0 +1,43 @@
+Package: weatherstar
+Type: Package
+Title: A package to get and visualize the weather data of airports in the US
+Version: 0.1.0
+Authors@R: 
+    as.person(c(
+    "Qing He <qinghe@iastate.edu> [aut]", 
+    "Jing Hou <jinghou@iastate.edu> [aut]",
+    "Jing Li <jingli@iastate.edu> [aut]",
+    "Yuchen Wang <yuchenw@iastate.edu> [aut]",
+    "Ying Zheng <zhy@iastate.edu> [aut, cre]"
+    ))
+Description: A package to get and visualize the weather history data of airports
+    in the US.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.1.0)
+URL: https://github.com/floatgreen/airportweather
+BugReports: https://github.com/floatgreen/airportweather/issues
+RoxygenNote: 6.1.1
+Imports:
+    dplyr,
+    ggmap,
+    maps,
+    mapdata,
+    shiny,
+    xml2,
+    rvest,
+    purrr,
+    lubridate,
+    ggplot2,
+    scales,
+    assertthat,
+    reshape,
+    testthat,
+    stringr,
+    magrittr
+Suggests: 
+    knitr,
+    rmarkdown,
+    covr
+VignetteBuilder: knitr
