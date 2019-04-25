@@ -10,6 +10,7 @@
 ##' @export
 
 obhistory <- function(id=NULL){
+  assertthat::assert_that((length(id) == 1), msg = "num of argument should be 1")
   assertthat::assert_that(is.character(id) , msg = "id is not a string")
   assertthat::assert_that(stringr::str_length(id) == 4, msg = "id is not 4 characters")
   #load("./data/all_code.rda")
