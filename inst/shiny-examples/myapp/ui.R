@@ -10,6 +10,7 @@ ui <- fluidPage(
   ),
 
   mainPanel(
-    plotOutput("plot_temp")
+    plotOutput("plot_temp"),
+    dataTableOutput("table")
   )
 )
