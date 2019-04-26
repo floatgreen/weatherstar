@@ -5,7 +5,7 @@
 ##' @param id one 4 character airport code
 ##' @examples plot_temp_history("KAMW")
 ##' @import ggplot2
-##' @importFrom lubridate days
+##' @importFrom lubridate as_datetime
 ##' @importFrom assertthat assert_that
 ##' @export
 ##'
@@ -28,13 +28,14 @@ plot_temp_history <- function(id=NULL){
                       element_text(hjust = 0.5, size = 15, face = "bold"),
                                 axis.title = element_text(size = 15)))
 
-  weather_table %>% ggplot(aes(fulltime, Temperature, color = hday )) +
+  weather_table %>% ggplot(aes(as_datetime(localtime), Temperature, color = hday )) +
     geom_line(na.rm=TRUE) +
     ggtitle(paste0("Temperatue history for the past 72 hours", " in ", airportname )) +
     xlab( "Time") +
     scale_x_datetime(breaks=scales::date_breaks("4 hour"), labels=scales::date_format("%H:%M"))
 
 }
+
 
 
 #plot_temp_history("KORD")
