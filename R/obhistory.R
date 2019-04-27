@@ -14,12 +14,12 @@ obhistory <- function(id=NULL){
   assertthat::assert_that((length(id) == 1), msg = "num of argument should be 1")
   assertthat::assert_that(is.character(id) , msg = "id is not a string")
   assertthat::assert_that(stringr::str_length(id) == 4, msg = "id is not 4 characters")
-  #load("./data/all_code.rda")
-  data(package = "weatherstar", "all_code")
-  code <- all_code$Code
-  assertthat::assert_that(id %in% code , msg = "not a correct ID")
 
-  webpage <- xml2::read_html(paste("https://w1.weather.gov/data/obhistory/", id, ".html", sep = ""))
+  url <- paste("https://w1.weather.gov/data/obhistory/", id, ".html", sep = "")
+  assertthat::assert_that(!(httr::http_error(httr::GET(url))),
+                          msg = "url is not valid, maybe not a correct ID")
+
+  webpage <- xml2::read_html(url)
   tbls_ls <- webpage %>%
     rvest::html_nodes("table") %>%
     .[4] %>%
@@ -33,6 +33,11 @@ obhistory <- function(id=NULL){
 
   # to get current time from current weather XML
   current <- xml2::read_xml(paste0("https://w1.weather.gov/xml/current_obs/", id ,".xml"))
+  loc_name  <- current %>% xml2::xml_children()%>%
+    xml2::xml_text()%>%.[6]
+  weather_table$loc_name <- loc_name
+  weather_table$code <- id
+
   current_obs_time <- current %>% xml2::xml_children()%>%
     xml2::xml_text()%>%.[10]
 
@@ -52,17 +57,17 @@ obhistory <- function(id=NULL){
     weather_table$day[weather_table$date == udate[i]] <- nd -i + 1
   }
 
-  # fulltime has the same value as local time but in UTC
-  weather_table$fulltime <- weather_table$fulltime - days(nd - weather_table$day)
-  weather_table$localtime <- as.character(weather_table$fulltime) # local time
+  # `fulltime` has the same value as local time but in UTC
+  weather_table$`fulltime` <- weather_table$`fulltime` - days(nd - weather_table$day)
+  weather_table$localtime <- as.character(weather_table$`fulltime`) # local time
 
 
   # deal with hday: first, second, thirs 24 hours
-  last_obs_time<- weather_table$fulltime[1]
+  last_obs_time<- weather_table$`fulltime`[1]
 
   weather_table <- weather_table %>%
-    dplyr::mutate (hday = if_else(as.numeric(last_obs_time - fulltime) < 86400, "third24hours",
-                           if_else(as.numeric(last_obs_time - fulltime) < 172800, "second24hours", "first24hours")))
+    dplyr::mutate (hday = if_else(as.numeric(last_obs_time - `fulltime`) < 86400, "third24hours",
+                           if_else(as.numeric(last_obs_time - `fulltime`) < 172800, "second24hours", "first24hours")))
 
   # transfer to true time, based on TZ, time_UTC
   shift <- if_else(TZ =="EDT", 4,
@@ -73,12 +78,12 @@ obhistory <- function(id=NULL){
                                                    if_else(TZ == "AKST", 9,
                                                            if_else(TZ == "HST",10,0)))))))
 
-  weather_table$time_UTC <-  weather_table$fulltime - hours(shift)
+  weather_table$time_UTC <-  weather_table$`fulltime` - hours(shift)
 
   # reverse the dataset
   weather_table<- weather_table %>% purrr::map_df(rev)
 
-  histweather <- weather_table %>% dplyr::select(date, time, localtime, time_UTC, Weather, Temperature, hday)
+  histweather <- weather_table %>% dplyr::select(code, loc_name, date, time, localtime, time_UTC, Weather, Temperature, hday)
 
   assertthat::assert_that(is.data.frame(histweather))
   return(histweather)

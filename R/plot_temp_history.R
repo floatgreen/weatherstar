@@ -14,15 +14,13 @@ plot_temp_history <- function(id=NULL){
   assertthat::assert_that((length(id) == 1), msg = "num of argument should be 1")
   assertthat::assert_that(is.character(id) , msg ="id is not a string")
   assertthat::assert_that(stringr::str_length(id) == 4, msg = "id is not 4 characters")
-  #load("./data/all_code.rda")
-  data(package = "weatherstar", "all_code")
 
-  code <- all_code$Code
-  assertthat::assert_that(id %in% code , msg = "not a correct ID")
+  url <- paste("https://w1.weather.gov/data/obhistory/", id, ".html", sep = "")
+  assertthat::assert_that(!(httr::http_error(httr::GET(url))),
+                          msg = "url is not valid, maybe not a correct ID")
 
-  airportname <- all_code$Name[match(id, code)]
   weather_table <- obhistory(id)
-
+  airportname <- weather_table$loc_name[1]
   theme_set(theme_light()+
               theme(plot.title =
                       element_text(hjust = 0.5, size = 15, face = "bold"),
