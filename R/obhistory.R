@@ -10,7 +10,7 @@
 ##' @importFrom dplyr if_else mutate
 ##' @export
 
-utils::globalVariables(c("fulltime", "code", "localtime", "time_UTC", "Weather", "Temperature", "hday"))
+utils::globalVariables(c(".", "fulltime", "code", "localtime", "time_UTC", "Weather", "Temperature", "hday"))
 
 obhistory <- function(id=NULL){
   assertthat::assert_that((length(id) == 1), msg = "num of argument should be 1")
