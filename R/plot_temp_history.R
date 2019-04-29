@@ -10,6 +10,8 @@
 ##' @export
 ##'
 
+utils::globalVariables(c("localtime", "Temperature", "hday"))
+
 plot_temp_history <- function(id=NULL){
   assertthat::assert_that((length(id) == 1), msg = "num of argument should be 1")
   assertthat::assert_that(is.character(id) , msg ="id is not a string")

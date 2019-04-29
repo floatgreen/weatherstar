@@ -77,11 +77,16 @@ data(package = "weatherstar", "all_code")
 pander::pandoc.table(head(all_code))
 ```
 
+## Installation
 
-## Fuctions
+```{r eval = FALSE}
+devtools::install_github("floatgreen/weatherstar")
+```
 
 
+## Functions
 
+### 
 
 
 

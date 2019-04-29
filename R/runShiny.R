@@ -3,6 +3,7 @@
 ##' @description Run shiny app to show the weather information.
 ##' @usage runShiny()
 ##' @return a shiny app
+##' @import shiny
 ##' @examples
 ##' \dontrun{
 ##' runShiny()
